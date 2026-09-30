@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ddacc.org/schemas/schedule.schema.json",
+  "title": "DDACC Schedule",
+  "description": "Schema for the Detroit Digital Artist Convention & Conference event agenda",
+  "type": "object",
+  "properties": {
+    "eventName": {
+      "type": "string",
+      "default": "Detroit Digital Artist Convention & Conference (DDACC)"
+    },
+    "days": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/day"
+      }
+    }
+  },
+  "required": ["eventName", "days"],
+  "$defs": {
+    "day": {
+      "type": "object",
+      "properties": {
+        "dayId": {
+          "type": "string",
+          "enum": ["day-1", "day-2", "day-3"]
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "theme": {
+          "type": "string"
+        },
+        "sessions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/session"
+          }
+        }
+      },
+      "required": ["dayId", "date", "theme", "sessions"]
+    },
+    "session": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "startTime": {
+          "type": "string",
+          "pattern": "^([01]?[0-9]|2[0-3]):[0-5][0-9]$"
+        },
+        "endTime": {
+          "type": "string",
+          "pattern": "^([01]?[0-9]|2[0-3]):[0-5][0-9]$"
+        },
+        "track": {
+          "type": "string",
+          "enum": [
+            "Love Collective",
+            "Industry & Innovation",
+            "Emergent Tools & Workshops",
+            "Interactive & Experimental Media",
+            "General"
+          ]
+        },
+        "location": {
+          "type": "string"
+        },
+        "speakers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/speaker"
+          }
+        }
+      },
+      "required": ["id", "title", "startTime", "endTime", "track", "location"]
+    },
+    "speaker": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "organization": {
+          "type": "string"
+        },
+        "bio": {
+          "type": "string"
+        }
+      },
+      "required": ["name"]
+    }
+  }
+}
