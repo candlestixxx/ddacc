@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ddacc.org/schemas/artist-application.schema.json",
+  "title": "DDACC Artist Application",
+  "description": "Schema for Detroit Digital Artist Convention & Conference creator submissions",
+  "type": "object",
+  "properties": {
+    "applicantId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "submissionDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "artistProfile": {
+      "type": "object",
+      "properties": {
+        "fullName": {
+          "type": "string"
+        },
+        "artistHandle": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "location": {
+          "type": "string"
+        },
+        "portfolioUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "socialLinks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "required": ["fullName", "email", "portfolioUrl"]
+    },
+    "applicationType": {
+      "type": "string",
+      "enum": [
+        "Artist Alley Table",
+        "Speaker / Panel Proposal",
+        "Interactive Installation",
+        "Workshop Lead"
+      ]
+    },
+    "artMediums": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "2D Digital Illustration",
+          "3D Modeling & Sculpting",
+          "Concept Art & Visual Development",
+          "Motion Graphics & Animation",
+          "VFX & Real-Time Engine",
+          "AR / VR / XR",
+          "Generative & Algorithmic",
+          "Other"
+        ]
+      },
+      "minItems": 1
+    },
+    "proposalDetails": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "abstract": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "collectiveAffiliation": {
+          "type": "string",
+          "description": "Optional name of art group or collective"
+        },
+        "techRequirements": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["abstract"]
+    },
+    "loveCollectivePledge": {
+      "type": "boolean",
+      "description": "Agreement to uphold community guidelines of inclusion and mutual support",
+      "const": true
+    }
+  },
+  "required": [
+    "applicantId",
+    "submissionDate",
+    "artistProfile",
+    "applicationType",
+    "artMediums",
+    "proposalDetails",
+    "loveCollectivePledge"
+  ]
+}
