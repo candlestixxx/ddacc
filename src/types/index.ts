@@ -1,29 +1,17 @@
-export type TrackType =
-  | 'Love Collective'
-  | 'Industry & Innovation'
-  | 'Emergent Tools & Workshops'
-  | 'Interactive & Experimental Media'
-  | 'General';
-
-export interface Speaker {
-  name: string;
-  role?: string;
-  organization?: string;
-  bio?: string;
-}
-
 export interface Session {
   id: string;
   title: string;
-  description?: string;
-  startTime: string; // HH:mm format
-  endTime: string;   // HH:mm format
+  startTime: string;
+  endTime: string;
   track: TrackType;
   location: string;
-  speakers?: Speaker[];
+  description: string;
+  speakers?: string[];
+  capacity?: number;
+  level?: 'Beginner' | 'Intermediate' | 'Advanced' | 'All Levels';
 }
 
-export interface Day {
+export interface DaySchedule {
   dayId: 'day-1' | 'day-2' | 'day-3';
   date: string;
   theme: string;
@@ -32,8 +20,15 @@ export interface Day {
 
 export interface Schedule {
   eventName: string;
-  days: Day[];
+  days: DaySchedule[];
 }
+
+export type TrackType =
+  | 'Love Collective'
+  | 'Industry & Innovation'
+  | 'Emergent Tools & Workshops'
+  | 'Interactive & Experimental Media'
+  | 'General';
 
 export type ApplicationType =
   | 'Artist Alley Table'
@@ -51,28 +46,23 @@ export type ArtMedium =
   | 'Generative & Algorithmic'
   | 'Other';
 
-export interface ArtistProfile {
-  fullName: string;
-  artistHandle?: string;
-  email: string;
-  location?: string;
-  portfolioUrl: string;
-  socialLinks?: string[];
-}
-
-export interface ProposalDetails {
-  title?: string;
-  abstract: string;
-  collectiveAffiliation?: string;
-  techRequirements?: string[];
-}
-
 export interface ArtistApplication {
-  applicantId: string;
-  submissionDate: string;
-  artistProfile: ArtistProfile;
-  applicationType: ApplicationType;
-  artMediums: ArtMedium[];
-  proposalDetails: ProposalDetails;
-  loveCollectivePledge: boolean;
+  fullName: string;
+  email: string;
+  artistHandle?: string;
+  portfolioUrl: string;
+  formType: ApplicationType;
+  primaryMedium: ArtMedium;
+  proposalDetails: string;
+  technicalRequirements?: string;
+  pledgeAgreed: boolean;
+}
+
+export interface WallNote {
+  id: string;
+  author: string;
+  message: string;
+  timestamp: string;
+  likes: number;
+  category: 'General' | 'Art Tip' | 'Collaboration' | 'Shoutout';
 }
