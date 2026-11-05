@@ -19,11 +19,12 @@ The single source of truth for the project version is `VERSION.md`.
 - **Universal Tooltip Infrastructure (`src/components/Tooltip.tsx`)**:
   - Added an accessible, keyboard-navigable (`Tab` / `focus` / `hover`) tooltip component with distinct information markers (`ℹ`).
   - Placed tooltip guidance throughout schedule filtering, artist alley requirements, Love Collective pledge, and server operations.
-- **API Route Handlers**:
+- **API Route Handlers & Security Guardrails**:
   - `GET /api/schedule`: Live JSON schedule with search, day filtering, and track filtering.
-  - `GET /api/applications` & `POST /api/applications`: Artist Alley and Speaker proposal submission handler validating against JSON schemas with duplicate handling.
-  - `GET /api/wall` & `POST /api/wall`: Real-time collaborative community wall with category tagging and like counter increments.
+  - `GET /api/applications` & `POST /api/applications`: Artist Alley and Speaker proposal submission handler with rate limiting (5 req/min per client IP) and schema validation.
+  - `GET /api/wall` & `POST /api/wall`: Real-time collaborative community wall with rate limiting (15 req/min per client IP), category tagging, and like counter increments.
   - `GET /api/system/status`: Server health check and operations diagnostic endpoint.
+  - `src/lib/rateLimit.ts`: In-memory sliding-window token-bucket rate limiter.
 - **Enhanced Interactive Components**:
   - `Schedule.tsx`: Added instant keyword search, bookmark toggling with local storage memory, track badge color coding, and modal session detail view.
   - `ArtistPortal.tsx`: Multi-select art medium badges, portfolio URL verification, technical requirement notes, and Love Collective pledge checkbox with submission state handling.

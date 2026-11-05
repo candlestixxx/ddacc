@@ -7,9 +7,10 @@
 - **System Tray Operations**: Persistent bottom-right dock (`src/components/SystemTrayDock.tsx`) provides real-time system monitoring, server health telemetry, uptime counter, connection count, and server action controls (restart, cache flush, test shutdown).
 - **Backend API Endpoints**:
   - `GET /api/schedule`: Provides searchable, filterable schedule session payloads.
-  - `GET /api/applications`, `POST /api/applications`: Processes speaker and artist alley proposals.
-  - `GET /api/wall`, `POST /api/wall`: In-memory and persisted community shoutout and collaboration wall.
+  - `GET /api/applications`, `POST /api/applications`: Processes speaker and artist alley proposals protected by rate limiting.
+  - `GET /api/wall`, `POST /api/wall`: In-memory and persisted community shoutout and collaboration wall protected by rate limiting.
   - `GET /api/system/status`: Server health check and diagnostics.
+- **Security & Rate Limiting**: `src/lib/rateLimit.ts` handles per-IP client token-bucket rate limiting for public submission endpoints to prevent flooding.
 - **Universal Tooltips**: Tooltips built using accessible SVG triggers with aria labels and keyboard-accessible hover/focus states (`src/components/Tooltip.tsx`).
 
 ## Design Preferences

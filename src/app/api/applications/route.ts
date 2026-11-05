@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { checkRateLimit, getClientIdentifier } from '@/lib/rateLimit';
 
 export interface ApplicationRecord {
   id: string;
@@ -42,6 +43,22 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    const clientId = getClientIdentifier(request);
+    const rateLimit = checkRateLimit('applications', clientId, {
+      windowMs: 60 * 1000,
+      maxRequests: 5
+    });
+
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        {
+          status: 'error',
+          message: 'Rate limit exceeded. Please wait a minute before submitting again.'
+        },
+        { status: 429 }
+      );
+    }
+
     const body = await request.json();
     const { fullName, email, portfolioUrl, formType, primaryMedium, proposalDetails, pledgeAgreed } = body;
 

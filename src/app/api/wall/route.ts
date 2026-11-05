@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { checkRateLimit, getClientIdentifier } from '@/lib/rateLimit';
 
 export interface WallNote {
   id: string;
@@ -54,6 +55,22 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
+    const clientId = getClientIdentifier(request);
+    const rateLimit = checkRateLimit('digital-wall', clientId, {
+      windowMs: 60 * 1000,
+      maxRequests: 15
+    });
+
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        {
+          status: 'error',
+          message: 'Rate limit exceeded. Please wait a moment before sending more wall updates.'
+        },
+        { status: 429 }
+      );
+    }
+
     const body = await request.json();
     const { action, id, author, message, category } = body;
 

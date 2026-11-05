@@ -7,8 +7,8 @@
 - [x] Add floating System Tray Dock with interactive server actions.
 - [x] Add accessible tooltips (`Tooltip.tsx`) to form fields and operational metrics.
 - [x] Verify production build (`npm run build`) and strict linting (`npm run lint`).
+- [x] Implement rate-limiting middleware for `/api/wall` and `/api/applications` (`src/lib/rateLimit.ts`).
 - [ ] Connect production Postgres/SQLite database layer for persistent storage beyond memory state.
-- [ ] Implement rate-limiting middleware for `/api/wall` and `/api/applications`.
 
 ## Short-Term Polish
 - [ ] Add sound effects toggle (synthesizer bleeps) for dashboard interactions.
