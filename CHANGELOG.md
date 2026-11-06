@@ -14,7 +14,7 @@ The single source of truth for the project version is `VERSION.md`.
 - **System Tray Dock (`src/components/SystemTrayDock.tsx`)**:
   - Created a floating, persistent system tray widget at the bottom right with live server health indicator (`ONLINE`, `DEGRADED`, `DISCONNECTED`).
   - Implemented popover controls with real-time uptime clock, active websocket connection counters, active services monitor (Schedule, Artist Alley, Wall Sync, Projections).
-  - Added operational actions: Restart Server, Flush Cache, View Stream Logs, and Test Shutdown mode.
+  - Added operational actions: Restart Server, Flush Cache, View Stream Logs, Export CSV, and Test Shutdown mode.
   - Added sticky top navigation status indicator linking to system tray.
 - **Universal Tooltip Infrastructure (`src/components/Tooltip.tsx`)**:
   - Added an accessible, keyboard-navigable (`Tab` / `focus` / `hover`) tooltip component with distinct information markers (`ℹ`).
@@ -22,6 +22,7 @@ The single source of truth for the project version is `VERSION.md`.
 - **API Route Handlers & Security Guardrails**:
   - `GET /api/schedule`: Live JSON schedule with search, day filtering, and track filtering.
   - `GET /api/applications` & `POST /api/applications`: Artist Alley and Speaker proposal submission handler with rate limiting (5 req/min per client IP) and schema validation.
+  - `GET /api/applications/export`: Downloadable CSV export of submitted applications.
   - `GET /api/wall` & `POST /api/wall`: Real-time collaborative community wall with rate limiting (15 req/min per client IP), category tagging, and like counter increments.
   - `GET /api/system/status`: Server health check and operations diagnostic endpoint.
   - `src/lib/rateLimit.ts`: In-memory sliding-window token-bucket rate limiter.

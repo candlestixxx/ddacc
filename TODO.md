@@ -8,9 +8,9 @@
 - [x] Add accessible tooltips (`Tooltip.tsx`) to form fields and operational metrics.
 - [x] Verify production build (`npm run build`) and strict linting (`npm run lint`).
 - [x] Implement rate-limiting middleware for `/api/wall` and `/api/applications` (`src/lib/rateLimit.ts`).
+- [x] Add CSV export for approved Artist Alley applications (`/api/applications/export`).
 - [ ] Connect production Postgres/SQLite database layer for persistent storage beyond memory state.
 
 ## Short-Term Polish
 - [ ] Add sound effects toggle (synthesizer bleeps) for dashboard interactions.
-- [ ] Add CSV export for approved Artist Alley applications.
 - [ ] Add calendar file (`.ics`) download for bookmarked schedule sessions.

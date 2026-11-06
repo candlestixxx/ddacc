@@ -194,9 +194,19 @@ export default function SystemTrayDock() {
                 >
                   {showLogs ? 'Hide Logs' : 'View Stream Logs'}
                 </button>
+                <a
+                  href="/api/applications/export"
+                  download="ddacc-applications.csv"
+                  className="px-3 py-1.5 bg-cyan-950/40 hover:bg-cyan-900/60 text-cyan-300 border border-cyan-800/40 rounded-lg text-center transition-colors flex items-center justify-center gap-1"
+                >
+                  ⬇ Export CSV
+                </a>
+              </div>
+
+              <div className="pt-1">
                 <button
                   onClick={handleShutdown}
-                  className="px-3 py-1.5 bg-rose-950/40 hover:bg-rose-900/60 text-rose-300 border border-rose-800/40 rounded-lg text-center transition-colors"
+                  className="w-full px-3 py-1.5 bg-rose-950/40 hover:bg-rose-900/60 text-rose-300 border border-rose-800/40 rounded-lg text-center font-mono text-xs transition-colors"
                 >
                   Test Shutdown
                 </button>
