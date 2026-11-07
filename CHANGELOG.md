@@ -3,6 +3,24 @@
 All notable changes to the Detroit Digital Artist Convention & Conference (DDACC) platform are documented in this file.
 The single source of truth for the project version is `VERSION.md`.
 
+## [0.2.1] - 2026-03-29
+
+### Digital Badge Pass Generator & Huntington Place QR Check-in System
+- **Pass Security & Hash Engine (`src/lib/badge.ts`)**:
+  - Deterministic HMAC-SHA256 signature calculation over badge identifier, attendee role, and timestamp.
+  - In-memory registry tracking issued passes and check-in statuses (`isIssued`, `isCheckedIn`, `checkInTime`).
+  - Standardized DDACC badge pass format: `DDACC26-{ROLE_CODE}-{BASE36_STAMP}-{RAND_HEX}`.
+- **Badge API Route Handlers (`/api/badge/verify`)**:
+  - `POST` with `action: 'issue'`: Validates registration payload, calculates deterministic signature, and registers pass.
+  - `POST` with `action: 'checkin'`: Validates signature integrity, verifies turnstile admission at Huntington Place Hall C, and flags pass as checked in.
+  - `GET ?passId=...`: Verifies signature authenticity and checks issuance status.
+- **Interactive Badge Pass Modal Component (`src/components/BadgePassModal.tsx`)**:
+  - High-aesthetic cyber-credential visual card featuring attendee name, role badge, access tier, pass ID, and cryptographic signature snippet.
+  - Procedurally generated vector SVG QR code representation with visual framing and "SCAN AT DOOR" markers.
+  - Turnstile scan simulator testing real check-in flows with synthesized Detroit audio feedback chime and error notifications.
+- **Top Bar Integration (`src/app/page.tsx`)**:
+  - Prominent "Claim Digital Pass" CTA in top navigation bar wired to modal state and audio cues.
+
 ## [0.2.0] - 2026-03-29
 
 ### Synthesizer Audio Effects & Interactive Polish

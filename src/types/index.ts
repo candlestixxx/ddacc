@@ -66,3 +66,17 @@ export interface WallNote {
   likes: number;
   category: 'General' | 'Art Tip' | 'Collaboration' | 'Shoutout';
 }
+
+export type BadgeRole = 'Creator / Exhibitor' | 'Speaker' | 'VIP Pass' | 'Community Attendee' | 'Staff / Volunteer';
+
+export interface BadgePass {
+  passId: string;
+  attendeeName: string;
+  role: BadgeRole;
+  affiliation?: string;
+  tier: 'All-Access' | 'Weekend Pass' | 'Day Pass' | 'Exhibitor Booth';
+  verificationHash: string;
+  issuedAt: string;
+  checkedIn: boolean;
+  checkInTimestamp?: string;
+}

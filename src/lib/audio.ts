@@ -104,6 +104,10 @@ class SoundManager {
   public playSubClick() {
     this.playDetroitBeep(320, 'sine', 0.04);
   }
+
+  public playClick() {
+    this.playDetroitBeep(440, 'triangle', 0.04);
+  }
 }
 
 export const soundFx = new SoundManager();

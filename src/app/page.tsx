@@ -1,11 +1,22 @@
+'use client';
+
+import React, { useState } from 'react';
 import Schedule from '@/components/Schedule';
 import ArtistPortal from '@/components/ArtistPortal';
 import DigitalWall from '@/components/DigitalWall';
+import BadgePassModal from '@/components/BadgePassModal';
 import Tooltip from '@/components/Tooltip';
+import { soundFx } from '@/lib/audio';
 
 export default function Home() {
+  const [isBadgeModalOpen, setIsBadgeModalOpen] = useState(false);
+
   return (
     <div className="flex flex-col items-center min-h-screen text-gray-100">
+      <BadgePassModal
+        isOpen={isBadgeModalOpen}
+        onClose={() => setIsBadgeModalOpen(false)}
+      />
       {/* Hero Section with High-Impact Value Hierarchy */}
       <section className="relative w-full py-20 md:py-28 overflow-hidden bg-gradient-to-b from-blue-950/40 via-purple-950/20 to-black flex flex-col items-center px-4 border-b border-gray-800/80">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-cyan-500/10 via-transparent to-transparent pointer-events-none" />
@@ -31,18 +42,30 @@ export default function Home() {
         <div className="flex flex-wrap items-center justify-center gap-4 mb-14">
           <a
             href="#schedule"
+            onClick={() => soundFx.playClick()}
             className="px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all shadow-lg shadow-blue-900/40 flex items-center gap-2"
           >
             <span>📅 Browse Schedule</span>
           </a>
+          <button
+            onClick={() => {
+              soundFx.playChime();
+              setIsBadgeModalOpen(true);
+            }}
+            className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-semibold text-sm transition-all shadow-lg shadow-cyan-900/30 flex items-center gap-2"
+          >
+            <span>🎫 Claim Digital Pass</span>
+          </button>
           <a
             href="#apply"
+            onClick={() => soundFx.playClick()}
             className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold text-sm transition-all shadow-lg shadow-pink-900/30 flex items-center gap-2"
           >
             <span>✨ Apply as Creator / Speaker</span>
           </a>
           <a
             href="#digital-wall"
+            onClick={() => soundFx.playClick()}
             className="px-6 py-3.5 rounded-xl bg-gray-900/90 hover:bg-gray-800 text-gray-200 border border-gray-700 font-semibold text-sm transition-all flex items-center gap-2"
           >
             <span>🎨 Live Collaborative Canvas</span>
