@@ -10,11 +10,11 @@
 - [x] Dynamic Artist Alley submission form with pledge verification.
 - [x] Live Collaborative Digital Wall with category filtering and real-time like increments.
 
-## Milestone 2: Real-time Multi-User & Physical Integration (In Progress - v0.2.1 / v0.3.0)
+## Milestone 2: Real-time Multi-User & Physical Integration (v0.2.2 / v0.3.0)
 - [x] Digital Badge Pass Generator with deterministic signature verification and simulated turnstile QR check-in (`src/lib/badge.ts`, `/api/badge/verify`, `BadgePassModal.tsx`).
+- [x] Interactive Huntington Place Floorplan & CAD Navigator (`src/components/VenueMap.tsx`, `/api/venue`) with level switching, real-time occupancy metrics, and room amenities.
 - [ ] WebSocket gateway for millisecond-latency Digital Wall updates across Huntington Place display walls.
 - [ ] Offline caching & Service Worker for intermittent mobile connectivity on convention floor.
-- [ ] Live venue map integration (Huntington Place Hall C & Grand Ballroom overlay).
 
 ## Milestone 3: Community & Governance Expansion (v0.4.0)
 - [ ] Community voting and peer review mechanism for Artist Alley jurying.

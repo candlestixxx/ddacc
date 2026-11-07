@@ -80,3 +80,28 @@ export interface BadgePass {
   checkedIn: boolean;
   checkInTimestamp?: string;
 }
+
+export interface VenueZone {
+  id: string;
+  name: string;
+  code: string;
+  level: 1 | 2;
+  capacity: number;
+  currentOccupancy: number;
+  highlightTrack?: TrackType;
+  description: string;
+  features: string[];
+  coordinates: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  };
+}
+
+export interface VenueFloor {
+  level: 1 | 2;
+  name: string;
+  subtitle: string;
+  zones: VenueZone[];
+}

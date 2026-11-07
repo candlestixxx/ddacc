@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Schedule from '@/components/Schedule';
 import ArtistPortal from '@/components/ArtistPortal';
 import DigitalWall from '@/components/DigitalWall';
+import VenueMap from '@/components/VenueMap';
 import BadgePassModal from '@/components/BadgePassModal';
 import Tooltip from '@/components/Tooltip';
 import { soundFx } from '@/lib/audio';
@@ -70,6 +71,13 @@ export default function Home() {
           >
             <span>🎨 Live Collaborative Canvas</span>
           </a>
+          <a
+            href="#venue-map"
+            onClick={() => soundFx.playClick()}
+            className="px-6 py-3.5 rounded-xl bg-cyan-950/60 hover:bg-cyan-900/60 text-cyan-200 border border-cyan-700/60 font-semibold text-sm transition-all flex items-center gap-2"
+          >
+            <span>🗺️ Huntington Place Floorplan</span>
+          </a>
         </div>
 
         {/* High-Value Live Stats Ribbon */}
@@ -108,7 +116,9 @@ export default function Home() {
             <span>•</span>
             <a href="#apply" className="hover:text-cyan-300 transition-colors">04. Artist Portal</a>
             <span>•</span>
-            <a href="#digital-wall" className="hover:text-cyan-300 transition-colors">05. Digital Wall</a>
+            <a href="#venue-map" className="hover:text-cyan-300 transition-colors">05. Venue Floorplan</a>
+            <span>•</span>
+            <a href="#digital-wall" className="hover:text-cyan-300 transition-colors">06. Digital Wall</a>
           </div>
           <a
             href="#apply"
@@ -219,7 +229,12 @@ export default function Home() {
           <ArtistPortal />
         </section>
 
-        {/* Section 5: Real-Time Collaborative Digital Wall */}
+        {/* Section 5: Interactive Venue Floorplan & CAD Navigator */}
+        <section id="venue-map" className="scroll-mt-20">
+          <VenueMap />
+        </section>
+
+        {/* Section 6: Real-Time Collaborative Digital Wall */}
         <section id="digital-wall" className="scroll-mt-20">
           <DigitalWall />
         </section>
@@ -236,6 +251,7 @@ export default function Home() {
           <div className="flex items-center gap-4 text-gray-400">
             <a href="#mission" className="hover:text-cyan-400">Ethos</a>
             <a href="#schedule" className="hover:text-cyan-400">Schedule</a>
+            <a href="#venue-map" className="hover:text-cyan-400">Floorplan</a>
             <a href="#apply" className="hover:text-cyan-400">Exhibitor Intake</a>
             <a href="#digital-wall" className="hover:text-cyan-400">Canvas</a>
           </div>

@@ -3,6 +3,21 @@
 All notable changes to the Detroit Digital Artist Convention & Conference (DDACC) platform are documented in this file.
 The single source of truth for the project version is `VERSION.md`.
 
+## [0.2.2] - 2026-03-29
+
+### Interactive Huntington Place Floorplan & CAD Navigator
+- **Interactive Floorplan CAD Navigator Component (`src/components/VenueMap.tsx`)**:
+  - Implemented technical blueprint CAD grid visualization of Huntington Place Detroit.
+  - Multi-level selector for Level 1 (Exhibition Hall & Stages) and Level 2 (Ballroom & Labs).
+  - Zone cards with dynamic track coloration, active occupancy bars, capacity meters, and status badges.
+  - Detailed Zone Inspector with room dimensions, AV rig specs, and accessibility details.
+- **Venue Topology API Endpoint (`/api/venue`)**:
+  - GET `/api/venue` returning structured topology of Level 1 and Level 2 with live occupancy metrics and room equipment specs.
+  - Level query parameter filtering (`/api/venue?level=1` or `level=2`).
+- **Dashboard Section & Jump Nav Wiring (`src/app/page.tsx`)**:
+  - Added Venue Map as Section 5 (`#venue-map`) with hero quick navigation link and sticky jump nav button.
+  - Added automated test validation for venue map API in `/home/jules/self_created_tools/verify_ddacc.py`.
+
 ## [0.2.1] - 2026-03-29
 
 ### Digital Badge Pass Generator & Huntington Place QR Check-in System
