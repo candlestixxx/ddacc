@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { TrackType, Session } from '@/types';
 import Tooltip from './Tooltip';
+import { soundFx } from '@/lib/audio';
 
 interface ApiScheduleResponse {
   status: string;
@@ -58,6 +59,7 @@ export default function Schedule() {
 
   const toggleBookmark = (sessionId: string, e: React.MouseEvent) => {
     e.stopPropagation();
+    soundFx.playDetroitBeep(750, 'triangle', 0.06);
     setBookmarkedSessionIds((prev) =>
       prev.includes(sessionId) ? prev.filter((id) => id !== sessionId) : [...prev, sessionId]
     );
@@ -165,6 +167,7 @@ export default function Schedule() {
                 : '/api/schedule/export'
             }
             download="ddacc-2026-agenda.ics"
+            onClick={() => soundFx.playChime()}
             className="text-xs font-mono text-cyan-300 bg-cyan-950/60 hover:bg-cyan-900 border border-cyan-500/30 px-2.5 py-1 rounded-md transition-colors flex items-center gap-1"
             title="Download iCalendar file for Apple Calendar, Google Calendar, or Outlook"
           >

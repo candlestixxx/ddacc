@@ -1,12 +1,10 @@
 import { NextResponse } from 'next/server';
 
-export async function GET(request: Request) {
+import { memoryApplications, ApplicationRecord } from '@/lib/applicationsData';
+
+export async function GET() {
   try {
-    const url = new URL(request.url);
-    const host = url.origin;
-    const res = await fetch(`${host}/api/applications`);
-    const data = await res.json();
-    const apps = data.applications || [];
+    const apps = memoryApplications;
 
     const headers = [
       'ID',
@@ -22,17 +20,7 @@ export async function GET(request: Request) {
 
     const escapeCsv = (str: string) => `"${(str || '').replace(/"/g, '""')}"`;
 
-    const csvRows = apps.map((app: {
-      id: string;
-      fullName: string;
-      email: string;
-      artistHandle?: string;
-      formType: string;
-      primaryMedium: string;
-      portfolioUrl: string;
-      status: string;
-      createdAt: string;
-    }) => [
+    const csvRows = apps.map((app: ApplicationRecord) => [
       escapeCsv(app.id),
       escapeCsv(app.fullName),
       escapeCsv(app.email),

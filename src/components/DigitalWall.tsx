@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Tooltip from './Tooltip';
 import { WallNote } from '@/types';
+import { soundFx } from '@/lib/audio';
 
 type WallCategory = 'All' | 'General' | 'Art Tip' | 'Collaboration' | 'Shoutout';
 
@@ -57,6 +58,7 @@ export default function DigitalWall() {
       });
 
       if (res.ok) {
+        soundFx.playChime();
         setMessage('');
         setReloadTrigger((v) => v + 1);
       }
@@ -68,6 +70,7 @@ export default function DigitalWall() {
   };
 
   const handleLike = async (id: string) => {
+    soundFx.playDetroitBeep(880, 'sine', 0.05);
     // Optimistic UI update
     setNotes((prev) =>
       prev.map((n) => (n.id === id ? { ...n, likes: n.likes + 1 } : n))

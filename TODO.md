@@ -13,4 +13,4 @@
 - [ ] Connect production Postgres/SQLite database layer for persistent storage beyond memory state.
 
 ## Short-Term Polish
-- [ ] Add sound effects toggle (synthesizer bleeps) for dashboard interactions.
+- [x] Add sound effects toggle (synthesizer bleeps) for dashboard interactions (`src/lib/audio.ts` & `src/components/AudioToggle.tsx`).

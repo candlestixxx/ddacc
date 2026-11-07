@@ -62,5 +62,7 @@ export function getClientIdentifier(request: Request): string {
   if (realIp) {
     return realIp.trim();
   }
-  return 'default-client';
+  // Include user-agent or host in fallback to prevent global client collision on local dev
+  const ua = request.headers.get('user-agent') || 'unknown-ua';
+  return `local-${ua.substring(0, 32)}`;
 }

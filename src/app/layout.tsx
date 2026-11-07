@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import SystemTrayDock from '@/components/SystemTrayDock';
+import AudioToggle from '@/components/AudioToggle';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -46,6 +47,9 @@ export default function RootLayout({
             </nav>
 
             <div className="flex items-center gap-3">
+              {/* Audio Synthesizer Toggle */}
+              <AudioToggle />
+
               {/* Header Status Beacon */}
               <div className="hidden sm:flex items-center gap-2 px-3 py-1 bg-gray-900 border border-gray-800 rounded-full text-xs font-mono">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />

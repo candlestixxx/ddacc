@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Tooltip from './Tooltip';
+import { soundFx } from '@/lib/audio';
 
 interface SystemStatus {
   status: string;
@@ -43,20 +44,24 @@ export default function SystemTrayDock() {
   }, [serverState]);
 
   const handleRestart = () => {
+    soundFx.playDetroitBeep(440, 'sawtooth', 0.12);
     setServerState('restarting');
     setLogs((prev) => [...prev, `[${new Date().toLocaleTimeString()}] SIGTERM received. Gracefully reloading DDACC worker processes...`]);
     setTimeout(() => {
+      soundFx.playChime();
       setLogs((prev) => [...prev, `[${new Date().toLocaleTimeString()}] DDACC operational services reinitialized successfully on port 3000.`]);
       setServerState('running');
     }, 1800);
   };
 
   const handleShutdown = () => {
+    soundFx.playDetroitBeep(220, 'square', 0.2);
     setServerState('stopped');
     setLogs((prev) => [...prev, `[${new Date().toLocaleTimeString()}] SYSTEM SHUTDOWN: Process listeners disconnected. Testing mock offline state.`]);
   };
 
   const handleFlushCache = () => {
+    soundFx.playDetroitBeep(1200, 'sine', 0.05);
     setLogs((prev) => [...prev, `[${new Date().toLocaleTimeString()}] In-memory cache flushed: schedule indexes and wall caches purged.`]);
   };
 
@@ -71,7 +76,10 @@ export default function SystemTrayDock() {
       {/* Floating System Tray Icon / Pill */}
       <div className="fixed bottom-4 right-4 z-50">
         <button
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => {
+            soundFx.playSubClick();
+            setIsOpen(!isOpen);
+          }}
           aria-label="DDACC Operations Tray"
           className="flex items-center gap-2.5 px-3.5 py-2 bg-gray-950/90 border border-cyan-500/30 hover:border-cyan-400 rounded-full shadow-2xl backdrop-blur-md text-xs font-mono text-cyan-200 transition-all hover:scale-105 active:scale-95"
         >

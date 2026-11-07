@@ -5,6 +5,14 @@ The single source of truth for the project version is `VERSION.md`.
 
 ## [0.2.0] - 2026-03-29
 
+### Synthesizer Audio Effects & Interactive Polish
+- **Synthesizer Web Audio API effects engine (`src/lib/audio.ts`)**:
+  - Implemented client-side audio synthesis generating Detroit techno bleeps, frequency sweeps, chimes, and power chords without external audio files.
+  - Added user audio preference persistence in local storage (`ddacc_audio_enabled`).
+- **Audio Control Toggle (`src/components/AudioToggle.tsx`)**:
+  - Integrated audio toggle in top navigation header allowing attendees and operators to enable/mute sound effects.
+  - Connected sound effects to System Tray actions, Digital Wall broadcast and cheer likes, and Schedule bookmark toggles and calendar exports.
+
 ### Major Architecture & Unified Dashboard Overhaul
 - **Consolidated Single-Page Experience (`src/app/page.tsx`)**:
   - Re-architected fragmented pages into a single, cohesive, high-impact dashboard experience organized by high-value hierarchy.

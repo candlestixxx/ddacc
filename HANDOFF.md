@@ -15,6 +15,7 @@ This document provides complete state restoration details for any successor mode
   - `GET /api/wall`, `POST /api/wall` (rate-limited collaborative wall posts and likes).
   - `GET /api/system/status` (telemetry and operational diagnostic endpoint).
 - **Security Guardrails**: `src/lib/rateLimit.ts` provides token-bucket sliding-window rate limiting for all public submission routes.
+- **Synthesizer Web Audio API effects engine**: `src/lib/audio.ts` & `src/components/AudioToggle.tsx` providing Detroit techno sound effects, header toggle button, and audio cues for tray controls, bookmarks, calendar exports, and wall note broadcasts.
 - **Tooltips**: Unified accessible component `src/components/Tooltip.tsx` placed across all critical interactive controls.
 - **Testing & Verification**:
   - `npm run build` compiles with 0 errors.
@@ -25,4 +26,4 @@ This document provides complete state restoration details for any successor mode
 ## Next Actions for Incoming Session
 1. Connect persistent database storage (PostgreSQL/SQLite via Prisma or Drizzle) to replace in-memory arrays in `/api/`.
 2. Implement WebSocket/Server-Sent Events connection for instant live wall sync across convention floor monitors.
-3. Add subtle synthesizer audio cues for dashboard interaction toggles.
+3. Add attendee badge QR code generator and verification scanner endpoint.
