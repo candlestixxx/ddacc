@@ -3,9 +3,12 @@
 ## Executive Summary
 This document provides complete state restoration details for any successor model or engineer resuming autonomous operations on the Detroit Digital Artist Convention & Conference (DDACC) repository.
 
-## State of the Repository at Handoff (v0.2.4)
-- **Version**: `0.2.4` (tracked in `VERSION.md`).
-- **Unified Single-Page Interface**: Fully consolidated at `src/app/page.tsx` with jump anchors, hero metrics, curated track breakdowns, interactive schedule, artist alley registration, venue floorplan navigator, collaborative digital wall with live SSE stream, and Digital Badge Pass integration.
+## State of the Repository at Handoff (v0.2.5)
+- **Version**: `0.2.5` (tracked in `VERSION.md`).
+- **Unified Single-Page Interface**: Fully consolidated at `src/app/page.tsx` with jump anchors, hero metrics, curated track breakdowns, interactive schedule, artist alley registration & community jurying showcase, venue floorplan navigator, collaborative digital wall with live SSE stream, and Digital Badge Pass integration.
+- **Community Voting & Peer Review Mechanism**:
+  - `/api/applications/vote`: Voting route handler allowing attendees to upvote artist alley and talk proposals, with IP-based duplicate vote rejection (HTTP 409 Conflict) and rate limiting.
+  - `src/components/ArtistPortal.tsx`: Two-tab interface ("Submit Proposal" and "Community Jury & Voting") displaying creator cards, portfolios, and reactive upvoting.
 - **Offline Caching & Progressive Web App (PWA)**:
   - `public/manifest.json`: Web app manifest configured with standalone display, dark theme, and icons.
   - `public/sw.js`: Service worker implementing precaching, Stale-While-Revalidate for app assets, and Network-First with Cache fallback for `/api/schedule` and `/api/venue`.
@@ -23,6 +26,7 @@ This document provides complete state restoration details for any successor mode
   - `src/components/BadgePassModal.tsx`: Cyber-credential pass generator modal with visual vector QR representation, direct turnstile simulation, and audio cues.
 - **System Tray Dock**: Functional at bottom-right (`src/components/SystemTrayDock.tsx`) with server uptime counter, connection counter, services health indicator, restart, cache flush, CSV export, stream logs view, and test shutdown mode.
 - **Backend API Endpoints**:
+  - `POST /api/applications/vote` (peer review voting with IP deduplication).
   - `GET /api/wall/stream` (Server-Sent Events gateway for real-time live canvas updates).
   - `GET /api/venue` (Huntington Place floorplan data with `?level=1|2` filter).
   - `GET /api/schedule` (with query filtering for search, day, and tracks).
@@ -38,10 +42,10 @@ This document provides complete state restoration details for any successor mode
 - **Testing & Verification**:
   - `npm run build` compiles with 0 errors.
   - `npm run lint` passes with 0 errors / 0 warnings.
-  - Validation test script located at `/home/jules/self_created_tools/verify_ddacc.py` validates all schema shapes, venue floorplan endpoints, SSE stream endpoints, PWA manifest, service worker presence, CSV output, RFC 5545 calendar output, badge issuance/checkin/signature validation, and 429 rate limit triggers.
-  - Playwright visual verification screenshots verified at `verification_offline_banner.png` and `verification_digital_wall_stream.png`.
+  - Validation test script located at `/home/jules/self_created_tools/verify_ddacc.py` validates all schema shapes, venue floorplan endpoints, SSE stream endpoints, voting endpoints with 409 rejection, PWA manifest, service worker presence, CSV output, RFC 5545 calendar output, badge issuance/checkin/signature validation, and 429 rate limit triggers.
+  - Playwright visual verification screenshots verified at `verification_community_jurying.png`, `verification_offline_banner.png`, and `verification_digital_wall_stream.png`.
 
 ## Next Actions for Incoming Session
 1. Connect persistent database storage (PostgreSQL/SQLite via Prisma or Drizzle) to replace in-memory arrays in `/api/`.
-2. Community voting and peer review mechanism for Artist Alley jurying.
-3. Push notification dispatcher for schedule stage alerts via Service Worker Push API.
+2. Push notification dispatcher for schedule stage alerts via Service Worker Push API.
+3. Multi-lingual accessibility translation keys (English, Spanish, Arabic).

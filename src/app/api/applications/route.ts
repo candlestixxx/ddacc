@@ -58,7 +58,9 @@ export async function POST(request: Request) {
       technicalRequirements: body.technicalRequirements || '',
       pledgeAgreed: Boolean(pledgeAgreed),
       createdAt: new Date().toISOString(),
-      status: 'pending'
+      status: 'pending',
+      votes: 0,
+      votedIps: []
     };
 
     memoryApplications.unshift(newRecord);

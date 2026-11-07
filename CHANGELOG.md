@@ -3,6 +3,19 @@
 All notable changes to the Detroit Digital Artist Convention & Conference (DDACC) platform are documented in this file.
 The single source of truth for the project version is `VERSION.md`.
 
+## [0.2.5] - 2026-03-29
+
+### Community Voting & Peer Review Mechanism
+- **Peer Review Voting Route Handlers (`/api/applications/vote`)**:
+  - Built endpoint allowing convention attendees and creators to cast peer review votes on submitted artist alley and workshop proposals.
+  - Implemented client IP-based duplicate vote rejection (HTTP 409 Conflict) and rate limiting (20 votes/min).
+- **Creator Hub Two-Tab Experience (`src/components/ArtistPortal.tsx`)**:
+  - Re-architected `ArtistPortal.tsx` to feature two dedicated tabs: "Submit Proposal" and "Community Jury & Voting".
+  - Created a rich jury showcase card grid featuring creator handles, primary medium tags, proposal abstracts, portfolio hyperlinks, and real-time upvote tallies.
+  - Added synthesized Detroit audio chimes on successful upvotes with stateful "✓ Voted" button locks.
+- **Automated Test Coverage**:
+  - Updated `/home/jules/self_created_tools/verify_ddacc.py` to validate proposal upvoting, tally increments, and 409 duplicate rejection.
+
 ## [0.2.4] - 2026-03-29
 
 ### Offline Caching Service Worker & Progressive Web App (PWA)
