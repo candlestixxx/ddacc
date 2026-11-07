@@ -7,6 +7,7 @@
 - **System Tray Operations**: Persistent bottom-right dock (`src/components/SystemTrayDock.tsx`) provides real-time system monitoring, server health telemetry, uptime counter, connection count, and server action controls (restart, cache flush, export CSV, test shutdown).
 - **Backend API Endpoints**:
   - `GET /api/schedule`: Provides searchable, filterable schedule session payloads.
+  - `GET /api/schedule/export`: Dynamic RFC 5545 `.ics` iCalendar generator for Apple/Google/Outlook syncing.
   - `GET /api/applications`, `POST /api/applications`: Processes speaker and artist alley proposals protected by rate limiting.
   - `GET /api/applications/export`: Generates downloadable CSV containing intake applications.
   - `GET /api/wall`, `POST /api/wall`: In-memory and persisted community shoutout and collaboration wall protected by rate limiting.

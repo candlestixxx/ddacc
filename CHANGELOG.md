@@ -19,15 +19,16 @@ The single source of truth for the project version is `VERSION.md`.
 - **Universal Tooltip Infrastructure (`src/components/Tooltip.tsx`)**:
   - Added an accessible, keyboard-navigable (`Tab` / `focus` / `hover`) tooltip component with distinct information markers (`ℹ`).
   - Placed tooltip guidance throughout schedule filtering, artist alley requirements, Love Collective pledge, and server operations.
-- **API Route Handlers & Security Guardrails**:
+- **API Route Handlers, Exports & Security Guardrails**:
   - `GET /api/schedule`: Live JSON schedule with search, day filtering, and track filtering.
+  - `GET /api/schedule/export`: RFC 5545-compliant `.ics` iCalendar feed generator for personal agenda or complete program sync.
   - `GET /api/applications` & `POST /api/applications`: Artist Alley and Speaker proposal submission handler with rate limiting (5 req/min per client IP) and schema validation.
   - `GET /api/applications/export`: Downloadable CSV export of submitted applications.
   - `GET /api/wall` & `POST /api/wall`: Real-time collaborative community wall with rate limiting (15 req/min per client IP), category tagging, and like counter increments.
   - `GET /api/system/status`: Server health check and operations diagnostic endpoint.
   - `src/lib/rateLimit.ts`: In-memory sliding-window token-bucket rate limiter.
 - **Enhanced Interactive Components**:
-  - `Schedule.tsx`: Added instant keyword search, bookmark toggling with local storage memory, track badge color coding, and modal session detail view.
+  - `Schedule.tsx`: Added instant keyword search, bookmark toggling with local storage memory, track badge color coding, modal session detail view, and direct `.ics` agenda calendar export button.
   - `ArtistPortal.tsx`: Multi-select art medium badges, portfolio URL verification, technical requirement notes, and Love Collective pledge checkbox with submission state handling.
   - `DigitalWall.tsx`: Note filtering by tag (`All`, `General`, `Art Tip`, `Collaboration`, `Shoutout`), character counter (280 max), and immediate optimistic UI updates.
 - **Version Governance**:

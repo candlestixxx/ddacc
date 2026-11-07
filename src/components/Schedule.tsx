@@ -152,11 +152,26 @@ export default function Schedule() {
           </button>
         ))}
 
-        {bookmarkedSessionIds.length > 0 && (
-          <div className="ml-auto text-xs font-mono text-amber-400 bg-amber-950/40 border border-amber-500/30 px-2.5 py-1 rounded-md">
-            ★ {bookmarkedSessionIds.length} Saved in My Agenda
-          </div>
-        )}
+        <div className="ml-auto flex items-center gap-2">
+          {bookmarkedSessionIds.length > 0 && (
+            <div className="text-xs font-mono text-amber-400 bg-amber-950/40 border border-amber-500/30 px-2.5 py-1 rounded-md">
+              ★ {bookmarkedSessionIds.length} Saved
+            </div>
+          )}
+          <a
+            href={
+              bookmarkedSessionIds.length > 0
+                ? `/api/schedule/export?ids=${bookmarkedSessionIds.join(',')}`
+                : '/api/schedule/export'
+            }
+            download="ddacc-2026-agenda.ics"
+            className="text-xs font-mono text-cyan-300 bg-cyan-950/60 hover:bg-cyan-900 border border-cyan-500/30 px-2.5 py-1 rounded-md transition-colors flex items-center gap-1"
+            title="Download iCalendar file for Apple Calendar, Google Calendar, or Outlook"
+          >
+            <span>📅</span>
+            <span>{bookmarkedSessionIds.length > 0 ? 'Export Saved (.ics)' : 'Export Full Schedule (.ics)'}</span>
+          </a>
+        </div>
       </div>
 
       {/* Schedule Container */}
