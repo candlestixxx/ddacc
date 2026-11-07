@@ -3,10 +3,12 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import SystemTrayDock from '@/components/SystemTrayDock';
 import AudioToggle from '@/components/AudioToggle';
+import PWARegister from '@/components/PWARegister';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+  manifest: '/manifest.json',
   title: 'DDACC 2026 | Detroit Digital Artist Convention & Conference',
   description: 'To empower, elevate, and connect digital creators across Detroit and beyond through The Love Collective.',
 };
@@ -65,6 +67,9 @@ export default function RootLayout({
             </div>
           </div>
         </header>
+
+        {/* Offline Banner & Service Worker Registrar */}
+        <PWARegister />
 
         {/* Main Single-Page Command Dashboard */}
         <main className="flex-1 w-full">

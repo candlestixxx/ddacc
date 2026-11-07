@@ -3,6 +3,21 @@
 All notable changes to the Detroit Digital Artist Convention & Conference (DDACC) platform are documented in this file.
 The single source of truth for the project version is `VERSION.md`.
 
+## [0.2.4] - 2026-03-29
+
+### Offline Caching Service Worker & Progressive Web App (PWA)
+- **Progressive Web App Manifest (`public/manifest.json`)**:
+  - Defined standalone display mode, dark UI theme colors (`#030712`), responsive app icons, and convention metadata.
+- **Service Worker Offline Caching Engine (`public/sw.js`)**:
+  - Implemented precaching for essential application shell assets (`/`, `/manifest.json`, `/globe.svg`).
+  - Stale-While-Revalidate caching strategy for UI pages and static media.
+  - Network-First with Cache fallback strategy for critical convention data endpoints (`/api/schedule` and `/api/venue`) allowing attendees to navigate sessions and stages even during convention hall connectivity drops.
+- **Client Offline Status Registrar (`src/components/PWARegister.tsx`)**:
+  - Automatic service worker registration in production environments.
+  - Reactive online/offline event listeners with sticky warning notification banner informing users when running in offline cache mode.
+- **Automated Test Coverage**:
+  - Added manifest and service worker presence verification in `/home/jules/self_created_tools/verify_ddacc.py`.
+
 ## [0.2.3] - 2026-03-29
 
 ### Real-Time Server-Sent Events (SSE) Streaming Gateway

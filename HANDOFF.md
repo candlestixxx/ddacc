@@ -3,9 +3,13 @@
 ## Executive Summary
 This document provides complete state restoration details for any successor model or engineer resuming autonomous operations on the Detroit Digital Artist Convention & Conference (DDACC) repository.
 
-## State of the Repository at Handoff (v0.2.3)
-- **Version**: `0.2.3` (tracked in `VERSION.md`).
+## State of the Repository at Handoff (v0.2.4)
+- **Version**: `0.2.4` (tracked in `VERSION.md`).
 - **Unified Single-Page Interface**: Fully consolidated at `src/app/page.tsx` with jump anchors, hero metrics, curated track breakdowns, interactive schedule, artist alley registration, venue floorplan navigator, collaborative digital wall with live SSE stream, and Digital Badge Pass integration.
+- **Offline Caching & Progressive Web App (PWA)**:
+  - `public/manifest.json`: Web app manifest configured with standalone display, dark theme, and icons.
+  - `public/sw.js`: Service worker implementing precaching, Stale-While-Revalidate for app assets, and Network-First with Cache fallback for `/api/schedule` and `/api/venue`.
+  - `src/components/PWARegister.tsx`: Client-side service worker lifecycle manager with sticky banner alerting attendees when offline cache mode is active.
 - **Real-Time Digital Wall Streaming Gateway**:
   - `src/lib/wallEvents.ts`: In-memory global event broadcaster handling subscriber lifecycles and event dispatching (`new_note`, `note_liked`, `ping`).
   - `/api/wall/stream`: Next.js Server-Sent Events (SSE) route streaming real-time canvas updates to browsers and exhibition monitors.
@@ -34,10 +38,10 @@ This document provides complete state restoration details for any successor mode
 - **Testing & Verification**:
   - `npm run build` compiles with 0 errors.
   - `npm run lint` passes with 0 errors / 0 warnings.
-  - Validation test script located at `/home/jules/self_created_tools/verify_ddacc.py` validates all schema shapes, venue floorplan endpoints, SSE stream endpoints, CSV output, RFC 5545 calendar output, badge issuance/checkin/signature validation, and 429 rate limit triggers.
-  - Playwright visual verification screenshots verified at `verification_digital_wall_stream.png`.
+  - Validation test script located at `/home/jules/self_created_tools/verify_ddacc.py` validates all schema shapes, venue floorplan endpoints, SSE stream endpoints, PWA manifest, service worker presence, CSV output, RFC 5545 calendar output, badge issuance/checkin/signature validation, and 429 rate limit triggers.
+  - Playwright visual verification screenshots verified at `verification_offline_banner.png` and `verification_digital_wall_stream.png`.
 
 ## Next Actions for Incoming Session
 1. Connect persistent database storage (PostgreSQL/SQLite via Prisma or Drizzle) to replace in-memory arrays in `/api/`.
-2. Add PWA offline caching service worker for floor attendees during intermittent mobile connectivity.
-3. Community voting and peer review mechanism for Artist Alley jurying.
+2. Community voting and peer review mechanism for Artist Alley jurying.
+3. Push notification dispatcher for schedule stage alerts via Service Worker Push API.

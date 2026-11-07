@@ -13,9 +13,10 @@
 - [x] Implement Digital Badge Pass Generator & Huntington Place QR Check-in System (`src/lib/badge.ts`, `/api/badge/verify`, `BadgePassModal.tsx`).
 - [x] Implement Interactive Huntington Place CAD Floorplan & Stage Navigator (`src/components/VenueMap.tsx`, `/api/venue`) with level filtering, live occupancy meters, and track affinity badges.
 - [x] Implement Real-Time Server-Sent Events (SSE) streaming gateway for Digital Wall (`/api/wall/stream`, `src/lib/wallEvents.ts`) with live status pulse indicator.
+- [x] Implement Service Worker offline caching strategy and standalone PWA manifest (`public/sw.js`, `public/manifest.json`, `src/components/PWARegister.tsx`).
 - [ ] Connect production Postgres/SQLite database layer for persistent storage beyond memory state.
 
 ## Short-Term Polish
 - [x] Add sound effects toggle (synthesizer bleeps) for dashboard interactions (`src/lib/audio.ts` & `src/components/AudioToggle.tsx`).
 - [x] Add simulated QR turnstile scanner with audio chime feedback on pass verification.
-- [ ] Add Service Worker offline caching strategy for PWA functionality.
+- [x] Add sticky visual offline notification banner for floor attendees experiencing connectivity drops.
