@@ -3,9 +3,13 @@
 ## Executive Summary
 This document provides complete state restoration details for any successor model or engineer resuming autonomous operations on the Detroit Digital Artist Convention & Conference (DDACC) repository.
 
-## State of the Repository at Handoff (v0.2.2)
-- **Version**: `0.2.2` (tracked in `VERSION.md`).
-- **Unified Single-Page Interface**: Fully consolidated at `src/app/page.tsx` with jump anchors, hero metrics, curated track breakdowns, interactive schedule, artist alley registration, venue floorplan navigator, collaborative digital wall, and Digital Badge Pass integration.
+## State of the Repository at Handoff (v0.2.3)
+- **Version**: `0.2.3` (tracked in `VERSION.md`).
+- **Unified Single-Page Interface**: Fully consolidated at `src/app/page.tsx` with jump anchors, hero metrics, curated track breakdowns, interactive schedule, artist alley registration, venue floorplan navigator, collaborative digital wall with live SSE stream, and Digital Badge Pass integration.
+- **Real-Time Digital Wall Streaming Gateway**:
+  - `src/lib/wallEvents.ts`: In-memory global event broadcaster handling subscriber lifecycles and event dispatching (`new_note`, `note_liked`, `ping`).
+  - `/api/wall/stream`: Next.js Server-Sent Events (SSE) route streaming real-time canvas updates to browsers and exhibition monitors.
+  - `src/components/DigitalWall.tsx`: EventSource integration with dynamic connection status badge (`● LIVE STREAM ACTIVE`), auto-append of incoming posts, like counter sync, and auditory chime feedback.
 - **Huntington Place CAD Floorplan & Stage Navigator**:
   - `src/components/VenueMap.tsx`: Blueprint CAD grid visualization, level switcher (Level 1 & Level 2), dynamic zone occupancy meters, track color highlights, and interactive room inspector.
   - `/api/venue`: REST endpoint serving Level 1 and Level 2 venue topology, occupancy metrics, dimensions, and AV specs.
@@ -15,12 +19,13 @@ This document provides complete state restoration details for any successor mode
   - `src/components/BadgePassModal.tsx`: Cyber-credential pass generator modal with visual vector QR representation, direct turnstile simulation, and audio cues.
 - **System Tray Dock**: Functional at bottom-right (`src/components/SystemTrayDock.tsx`) with server uptime counter, connection counter, services health indicator, restart, cache flush, CSV export, stream logs view, and test shutdown mode.
 - **Backend API Endpoints**:
+  - `GET /api/wall/stream` (Server-Sent Events gateway for real-time live canvas updates).
   - `GET /api/venue` (Huntington Place floorplan data with `?level=1|2` filter).
   - `GET /api/schedule` (with query filtering for search, day, and tracks).
   - `GET /api/schedule/export` (RFC 5545 `.ics` iCalendar feed generator).
   - `GET /api/applications`, `POST /api/applications` (rate-limited artist alley & talk proposal submissions).
   - `GET /api/applications/export` (downloads submitted proposals in standard CSV format).
-  - `GET /api/wall`, `POST /api/wall` (rate-limited collaborative wall posts and likes).
+  - `GET /api/wall`, `POST /api/wall` (rate-limited collaborative wall posts and likes, broadcasting to SSE).
   - `POST /api/badge/verify`, `GET /api/badge/verify` (attendee credential verification and turnstile scan engine).
   - `GET /api/system/status` (telemetry and operational diagnostic endpoint).
 - **Security Guardrails**: `src/lib/rateLimit.ts` provides token-bucket sliding-window rate limiting for all public submission routes.
@@ -29,10 +34,10 @@ This document provides complete state restoration details for any successor mode
 - **Testing & Verification**:
   - `npm run build` compiles with 0 errors.
   - `npm run lint` passes with 0 errors / 0 warnings.
-  - Validation test script located at `/home/jules/self_created_tools/verify_ddacc.py` validates all schema shapes, venue floorplan endpoints, CSV output, RFC 5545 calendar output, badge issuance/checkin/signature validation, and 429 rate limit triggers.
-  - Playwright visual verification screenshots verified at `verification_venuemap_level1.png` and `verification_venuemap_level2.png`.
+  - Validation test script located at `/home/jules/self_created_tools/verify_ddacc.py` validates all schema shapes, venue floorplan endpoints, SSE stream endpoints, CSV output, RFC 5545 calendar output, badge issuance/checkin/signature validation, and 429 rate limit triggers.
+  - Playwright visual verification screenshots verified at `verification_digital_wall_stream.png`.
 
 ## Next Actions for Incoming Session
 1. Connect persistent database storage (PostgreSQL/SQLite via Prisma or Drizzle) to replace in-memory arrays in `/api/`.
-2. Implement WebSocket/Server-Sent Events connection for instant live wall sync across convention floor monitors.
-3. Add PWA offline caching service worker for floor attendees during intermittent mobile connectivity.
+2. Add PWA offline caching service worker for floor attendees during intermittent mobile connectivity.
+3. Community voting and peer review mechanism for Artist Alley jurying.

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { checkRateLimit, getClientIdentifier } from '@/lib/rateLimit';
+import { wallEventEmitter } from '@/lib/wallEvents';
 
 export interface WallNote {
   id: string;
@@ -80,6 +81,11 @@ export async function POST(request: Request) {
         return NextResponse.json({ status: 'error', message: 'Note not found' }, { status: 404 });
       }
       note.likes += 1;
+      // Broadcast like update to all SSE connected streams
+      wallEventEmitter.emit({
+        type: 'note_liked',
+        data: { id: note.id, likes: note.likes }
+      });
       return NextResponse.json({ status: 'success', note });
     }
 
@@ -101,6 +107,12 @@ export async function POST(request: Request) {
     };
 
     memoryWallNotes.unshift(newNote);
+
+    // Broadcast new note to all SSE connected streams
+    wallEventEmitter.emit({
+      type: 'new_note',
+      data: newNote
+    });
 
     return NextResponse.json(
       {

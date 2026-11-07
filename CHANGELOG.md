@@ -3,6 +3,19 @@
 All notable changes to the Detroit Digital Artist Convention & Conference (DDACC) platform are documented in this file.
 The single source of truth for the project version is `VERSION.md`.
 
+## [0.2.3] - 2026-03-29
+
+### Real-Time Server-Sent Events (SSE) Streaming Gateway
+- **Real-Time Event Gateway Engine (`src/lib/wallEvents.ts` & `/api/wall/stream`)**:
+  - Implemented an in-memory event broadcaster (`wallEventEmitter`) enabling zero-dependency event subscription across serverless route handlers.
+  - Built `/api/wall/stream` with `text/event-stream` headers, automated 15-second keep-alive heartbeats, and client abort signal handling.
+  - Wired `POST /api/wall` to immediately broadcast `new_note` and `note_liked` events across all connected browser displays.
+- **Digital Wall Live Streaming Indicator & Auto-Sync (`src/components/DigitalWall.tsx`)**:
+  - Built browser `EventSource` connection hook that listens for live events, updates notes state instantaneously without page refreshes, and triggers synthesized sound effects on inbound messages.
+  - Added visual connection status indicator (`● LIVE STREAM ACTIVE` / `○ CONNECTING STREAM`) with tooltip explanation.
+- **Automated Test Coverage**:
+  - Added SSE stream handshake and event verification to `/home/jules/self_created_tools/verify_ddacc.py`.
+
 ## [0.2.2] - 2026-03-29
 
 ### Interactive Huntington Place Floorplan & CAD Navigator

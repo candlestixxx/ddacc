@@ -15,9 +15,11 @@ export default function DigitalWall() {
   const [selectedCategory, setSelectedCategory] = useState<WallNote['category']>('General');
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [streamConnected, setStreamConnected] = useState(false);
 
   const [reloadTrigger, setReloadTrigger] = useState(0);
 
+  // Initial fetch on mount & category change
   useEffect(() => {
     let isMounted = true;
     const fetchNotes = async () => {
@@ -40,6 +42,68 @@ export default function DigitalWall() {
       isMounted = false;
     };
   }, [category, reloadTrigger]);
+
+  // Server-Sent Events (SSE) live real-time connection
+  useEffect(() => {
+    let eventSource: EventSource | null = null;
+    let reconnectTimeout: NodeJS.Timeout | null = null;
+
+    const connectSSE = () => {
+      try {
+        eventSource = new EventSource('/api/wall/stream');
+
+        eventSource.addEventListener('connected', () => {
+          setStreamConnected(true);
+        });
+
+        eventSource.addEventListener('new_note', (event) => {
+          try {
+            const newNote: WallNote = JSON.parse(event.data);
+            setNotes((prev) => {
+              if (prev.some((n) => n.id === newNote.id)) return prev;
+              return [newNote, ...prev];
+            });
+            soundFx.playChime();
+          } catch (e) {
+            console.error('Failed to parse new_note SSE payload:', e);
+          }
+        });
+
+        eventSource.addEventListener('note_liked', (event) => {
+          try {
+            const data: { id: string; likes: number } = JSON.parse(event.data);
+            setNotes((prev) =>
+              prev.map((n) => (n.id === data.id ? { ...n, likes: data.likes } : n))
+            );
+          } catch (e) {
+            console.error('Failed to parse note_liked SSE payload:', e);
+          }
+        });
+
+        eventSource.onerror = () => {
+          setStreamConnected(false);
+          if (eventSource) {
+            eventSource.close();
+            eventSource = null;
+          }
+          // Attempt reconnect after 5 seconds
+          reconnectTimeout = setTimeout(connectSSE, 5000);
+        };
+      } catch (err) {
+        console.error('EventSource connection error:', err);
+        setStreamConnected(false);
+      }
+    };
+
+    connectSSE();
+
+    return () => {
+      if (reconnectTimeout) clearTimeout(reconnectTimeout);
+      if (eventSource) {
+        eventSource.close();
+      }
+    };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -90,9 +154,18 @@ export default function DigitalWall() {
   return (
     <div className="max-w-6xl mx-auto w-full">
       <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-2 px-3 py-1 bg-pink-950/60 border border-pink-500/30 rounded-full text-xs font-mono text-pink-300 mb-3">
-          <span>LIVE COMMUNITY FEED</span>
-          <Tooltip content="Messages posted here appear live on the Huntington Place Grand Ballroom projection walls and online viewer streams." />
+        <div className="inline-flex items-center gap-2.5 px-3.5 py-1 bg-pink-950/60 border border-pink-500/30 rounded-full text-xs font-mono text-pink-300 mb-3">
+          <span className="flex items-center gap-1.5">
+            <span
+              className={`w-2 h-2 rounded-full ${
+                streamConnected ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'
+              }`}
+            />
+            {streamConnected ? 'LIVE STREAM ACTIVE' : 'CONNECTING STREAM'}
+          </span>
+          <span className="text-pink-500/50">|</span>
+          <span>COMMUNITY FEED</span>
+          <Tooltip content="Live Server-Sent Events gateway. Messages and cheers broadcast in real-time across Huntington Place Grand Ballroom projection walls and online viewer streams." />
         </div>
         <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">The Digital Wall</h2>
         <p className="text-gray-400 max-w-xl mx-auto text-sm md:text-base">
