@@ -3,6 +3,21 @@
 All notable changes to the Detroit Digital Artist Convention & Conference (DDACC) platform are documented in this file.
 The single source of truth for the project version is `VERSION.md`.
 
+## [0.2.6] - 2026-03-29
+
+### Multi-Lingual Accessibility Framework & RTL Support
+- **Typed Multi-Lingual Translations Engine (`src/lib/i18n.tsx`)**:
+  - Implemented client-side i18n context with full TypeScript dictionary interface supporting English (`en`), Spanish (`es`), and Arabic (`ar`).
+  - Added native Right-To-Left (`dir="rtl"`) layout rendering support when Arabic is selected.
+  - Built local storage persistence (`ddacc_lang`) with instant client-side switching.
+- **Top Navigation Language Selector Component (`src/components/LanguageSelector.tsx`)**:
+  - Compact segment selector in header with audio tactile feedback (`EN`, `ES`, `AR`) and accessible tooltip guidance.
+  - Wrapped root application tree in `LanguageProvider` within `src/app/layout.tsx`.
+- **UI Localization Across Dashboard Core**:
+  - Bound hero badges, header titles, action buttons, live stats ribbons, and jump navigation labels directly to active translation tokens.
+- **Automated Parity & Key Validation Coverage**:
+  - Updated `/home/jules/self_created_tools/verify_ddacc.py` to ensure exact parity across dictionary keys for all three languages.
+
 ## [0.2.5] - 2026-03-29
 
 ### Community Voting & Peer Review Mechanism

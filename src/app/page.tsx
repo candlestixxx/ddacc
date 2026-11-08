@@ -8,9 +8,11 @@ import VenueMap from '@/components/VenueMap';
 import BadgePassModal from '@/components/BadgePassModal';
 import Tooltip from '@/components/Tooltip';
 import { soundFx } from '@/lib/audio';
+import { useLanguage } from '@/lib/i18n';
 
 export default function Home() {
   const [isBadgeModalOpen, setIsBadgeModalOpen] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <div className="flex flex-col items-center min-h-screen text-gray-100">
@@ -24,19 +26,19 @@ export default function Home() {
 
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-xs font-mono text-cyan-300 mb-6">
           <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-          <span>MAY 15–17, 2026 • HUNTINGTON PLACE DETROIT & VIRTUAL</span>
+          <span>{t.datesBadge}</span>
           <Tooltip content="Physical pass gives access to Detroit Huntington Place exhibition halls; virtual pass includes WebRTC live canvas streaming." />
         </div>
 
         <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-center max-w-5xl leading-tight mb-6">
-          Detroit Digital Artist <br className="hidden md:inline" />
+          {t.heroTitle1} <br className="hidden md:inline" />
           <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-            Convention & Conference
+            {t.heroTitle2}
           </span>
         </h1>
 
         <p className="text-lg md:text-xl text-gray-300 max-w-3xl text-center leading-relaxed mb-10 font-light">
-          Bridging Michigan’s vibrant creative community and high-tech craft. Uniting concept artists, 3D sculptors, XR innovators, and creative coders under <span className="font-semibold text-cyan-300">The Love Collective</span>.
+          {t.heroSubtitle}
         </p>
 
         {/* Quick Action Navigation Buttons */}
@@ -46,7 +48,7 @@ export default function Home() {
             onClick={() => soundFx.playClick()}
             className="px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all shadow-lg shadow-blue-900/40 flex items-center gap-2"
           >
-            <span>📅 Browse Schedule</span>
+            <span>{t.btnSchedule}</span>
           </a>
           <button
             onClick={() => {
@@ -55,38 +57,38 @@ export default function Home() {
             }}
             className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-semibold text-sm transition-all shadow-lg shadow-cyan-900/30 flex items-center gap-2"
           >
-            <span>🎫 Claim Digital Pass</span>
+            <span>{t.btnPass}</span>
           </button>
           <a
             href="#apply"
             onClick={() => soundFx.playClick()}
             className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold text-sm transition-all shadow-lg shadow-pink-900/30 flex items-center gap-2"
           >
-            <span>✨ Apply as Creator / Speaker</span>
+            <span>{t.btnApply}</span>
           </a>
           <a
             href="#digital-wall"
             onClick={() => soundFx.playClick()}
             className="px-6 py-3.5 rounded-xl bg-gray-900/90 hover:bg-gray-800 text-gray-200 border border-gray-700 font-semibold text-sm transition-all flex items-center gap-2"
           >
-            <span>🎨 Live Collaborative Canvas</span>
+            <span>{t.btnCanvas}</span>
           </a>
           <a
             href="#venue-map"
             onClick={() => soundFx.playClick()}
             className="px-6 py-3.5 rounded-xl bg-cyan-950/60 hover:bg-cyan-900/60 text-cyan-200 border border-cyan-700/60 font-semibold text-sm transition-all flex items-center gap-2"
           >
-            <span>🗺️ Huntington Place Floorplan</span>
+            <span>{t.btnFloorplan}</span>
           </a>
         </div>
 
         {/* High-Value Live Stats Ribbon */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl w-full">
           {[
-            { label: 'Sessions', count: '10 Sessions', sub: '5 Focused Tracks', tip: 'Spanning generative AI ethics to Blender sculpting' },
-            { label: 'Artist Alley', count: '42 Creators', sub: 'Tables & Showcases', tip: 'Juried independent illustrators, animators, and physical merch' },
-            { label: 'Registered', count: '388+', sub: 'Community Members', tip: 'Registered attendees across in-person & global streams' },
-            { label: 'Wall Status', count: 'Live & Open', sub: 'Huntington Place Screen', tip: 'Direct projection sync to Main Stage screens' }
+            { label: t.statSessions, count: '10 Sessions', sub: '5 Focused Tracks', tip: 'Spanning generative AI ethics to Blender sculpting' },
+            { label: t.statArtists, count: '42 Creators', sub: 'Tables & Showcases', tip: 'Juried independent illustrators, animators, and physical merch' },
+            { label: t.statRegistered, count: '388+', sub: 'Community Members', tip: 'Registered attendees across in-person & global streams' },
+            { label: t.statWall, count: 'Live & Open', sub: 'Huntington Place Screen', tip: 'Direct projection sync to Main Stage screens' }
           ].map((stat, i) => (
             <div
               key={i}
@@ -106,19 +108,19 @@ export default function Home() {
       {/* High-Value Sticky Section Sub-Navigation */}
       <nav aria-label="Section quick navigation" className="sticky top-0 z-40 w-full bg-gray-950/90 border-b border-gray-800 backdrop-blur-md px-4 py-3">
         <div className="max-w-6xl mx-auto flex items-center justify-between text-xs font-mono overflow-x-auto gap-4">
-          <span className="text-gray-400 hidden sm:inline">JUMP TO SECTION:</span>
+          <span className="text-gray-400 hidden sm:inline">{t.jumpLabel}</span>
           <div className="flex items-center gap-5 text-gray-400 whitespace-nowrap">
-            <a href="#mission" className="hover:text-cyan-300 transition-colors">01. Vision & Ethos</a>
+            <a href="#mission" className="hover:text-cyan-300 transition-colors">{t.navEthos}</a>
             <span>•</span>
-            <a href="#tracks" className="hover:text-cyan-300 transition-colors">02. Curated Tracks</a>
+            <a href="#tracks" className="hover:text-cyan-300 transition-colors">{t.navTracks}</a>
             <span>•</span>
-            <a href="#schedule" className="hover:text-cyan-300 transition-colors">03. Program Schedule</a>
+            <a href="#schedule" className="hover:text-cyan-300 transition-colors">{t.navSchedule}</a>
             <span>•</span>
-            <a href="#apply" className="hover:text-cyan-300 transition-colors">04. Artist Portal</a>
+            <a href="#apply" className="hover:text-cyan-300 transition-colors">{t.navApply}</a>
             <span>•</span>
-            <a href="#venue-map" className="hover:text-cyan-300 transition-colors">05. Venue Floorplan</a>
+            <a href="#venue-map" className="hover:text-cyan-300 transition-colors">{t.navVenue}</a>
             <span>•</span>
-            <a href="#digital-wall" className="hover:text-cyan-300 transition-colors">06. Digital Wall</a>
+            <a href="#digital-wall" className="hover:text-cyan-300 transition-colors">{t.navWall}</a>
           </div>
           <a
             href="#apply"

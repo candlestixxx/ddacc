@@ -1,8 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useLanguage } from '@/lib/i18n';
 
 export default function PWARegister() {
+  const { t } = useLanguage();
   const [isOffline, setIsOffline] = useState(() => {
     if (typeof navigator !== 'undefined') {
       return !navigator.onLine;
@@ -43,7 +45,7 @@ export default function PWARegister() {
   return (
     <div className="fixed top-16 left-0 right-0 z-40 bg-amber-500/90 text-black px-4 py-1.5 text-center text-xs font-mono font-semibold flex items-center justify-center gap-2 backdrop-blur-md shadow-lg">
       <span className="w-2 h-2 rounded-full bg-black animate-ping" />
-      <span>OFFLINE MODE - Serving cached schedule, venue maps, and offline data from Huntington Place cache.</span>
+      <span>{t.offlineBanner}</span>
     </div>
   );
 }

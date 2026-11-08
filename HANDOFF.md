@@ -3,8 +3,13 @@
 ## Executive Summary
 This document provides complete state restoration details for any successor model or engineer resuming autonomous operations on the Detroit Digital Artist Convention & Conference (DDACC) repository.
 
-## State of the Repository at Handoff (v0.2.5)
-- **Version**: `0.2.5` (tracked in `VERSION.md`).
+## State of the Repository at Handoff (v0.2.6)
+- **Version**: `0.2.6` (tracked in `VERSION.md`).
+- **Multi-Lingual Accessibility Framework & RTL Support**:
+  - `src/lib/i18n.tsx`: Strongly-typed translation dictionary providing full text strings across English (`en`), Spanish (`es`), and Arabic (`ar`), complete with active language state persistence in `localStorage`.
+  - Native RTL direction (`dir="rtl"`) automatically applied when Arabic is selected.
+  - `src/components/LanguageSelector.tsx`: Interactive language switcher in the sticky header with auditory feedback and accessible tooltips.
+  - Fully bound Hero section, jump navigation, quick action buttons, live statistics ribbons, and offline mode alerts to dynamic translation keys.
 - **Unified Single-Page Interface**: Fully consolidated at `src/app/page.tsx` with jump anchors, hero metrics, curated track breakdowns, interactive schedule, artist alley registration & community jurying showcase, venue floorplan navigator, collaborative digital wall with live SSE stream, and Digital Badge Pass integration.
 - **Community Voting & Peer Review Mechanism**:
   - `/api/applications/vote`: Voting route handler allowing attendees to upvote artist alley and talk proposals, with IP-based duplicate vote rejection (HTTP 409 Conflict) and rate limiting.
@@ -48,4 +53,4 @@ This document provides complete state restoration details for any successor mode
 ## Next Actions for Incoming Session
 1. Connect persistent database storage (PostgreSQL/SQLite via Prisma or Drizzle) to replace in-memory arrays in `/api/`.
 2. Push notification dispatcher for schedule stage alerts via Service Worker Push API.
-3. Multi-lingual accessibility translation keys (English, Spanish, Arabic).
+3. Archival streaming pipeline integration (PeerTube / open streaming relays).

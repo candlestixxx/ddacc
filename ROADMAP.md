@@ -16,7 +16,7 @@
 - [x] Real-time Server-Sent Events (SSE) streaming gateway for millisecond-latency Digital Wall updates across Huntington Place display walls (`/api/wall/stream`, `src/lib/wallEvents.ts`, `src/components/DigitalWall.tsx`).
 - [x] Offline caching & Service Worker for intermittent mobile connectivity on convention floor (`public/sw.js`, `public/manifest.json`, `src/components/PWARegister.tsx`).
 
-## Milestone 3: Community & Governance Expansion (v0.2.5 / v0.4.0)
+## Milestone 3: Community & Governance Expansion (v0.2.6 / v0.4.0)
 - [x] Community voting and peer review mechanism for Artist Alley jurying (`/api/applications/vote`, `src/components/ArtistPortal.tsx`).
-- [ ] Multi-lingual accessibility (English, Spanish, Arabic, ASL stream schedules).
+- [x] Multi-lingual accessibility framework (English, Spanish, Arabic with RTL layout support) (`src/lib/i18n.tsx`, `LanguageSelector.tsx`).
 - [ ] Archival streaming pipeline integration (PeerTube / open streaming relays).
